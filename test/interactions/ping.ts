@@ -24,7 +24,7 @@ export default class Ping extends Interaction {
   }
 
   override async autocomplete(interaction: AutocompleteInteraction, focused: string) {
-    const arr = this.client.users.cache.filter(u => u.tag.includes(focused)).map(u => ({ name: u.tag, value: u.tag })).slice(0, 25)
-    return interaction.respond(arr)
+    const arr = this.client.users.cache.filter(u => u.tag.includes(focused)).map(u => ({ name: u.tag, value: u.tag }))
+    return interaction.respond(arr.slice(0, 25))
   }
 }

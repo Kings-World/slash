@@ -54,6 +54,8 @@ export class InteractionHandler extends AkairoHandler {
   }
 
   transform(interaction: CommandInteraction | ContextMenuInteraction | AutocompleteInteraction, options?: InteractionOptions["options"]) {
+    // most of this function was made by melike2d (i just added the default option)
+    // https://github.com/lavaclient/djs-v13-example/blob/main/src/index.ts#L42-L45
     const mappedOptions = interaction.options.data.map((i) => {
       const value =
         i.role ?? i.channel ?? i.user ?? i.member ?? i.message ?? i.value;
