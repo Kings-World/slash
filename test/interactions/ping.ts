@@ -1,5 +1,5 @@
 import { Interaction } from "../../src";
-import type { CommandInteraction, AutocompleteInteraction } from "discord.js";
+import type { AutocompleteInteraction, CommandInteraction } from "discord.js";
 
 export default class Ping extends Interaction {
   constructor() {
@@ -13,18 +13,23 @@ export default class Ping extends Interaction {
           type: "STRING",
           description: "testing autocomplete",
           autocomplete: true,
-          required: true
-        }
-      ]
+          required: true,
+        },
+      ],
     });
   }
 
   override exec(interaction: CommandInteraction, { test }: { test: string }) {
-    return interaction.reply(`hello world, this is a ping pong test :: you chose \`${test}\``)
+    return interaction.reply(`🏓 playing ping pong with **${test}**`);
   }
 
-  override async autocomplete(interaction: AutocompleteInteraction, focused: string) {
-    const arr = this.client.users.cache.filter(u => u.tag.includes(focused)).map(u => ({ name: u.tag, value: u.tag }))
-    return interaction.respond(arr.slice(0, 25))
+  override async autocomplete(
+    interaction: AutocompleteInteraction,
+    focused: string
+  ) {
+    const arr = this.client.users.cache
+      .filter((u) => u.tag.includes(focused))
+      .map((u) => ({ name: u.tag, value: u.tag }));
+    return interaction.respond(arr.slice(0, 25));
   }
 }

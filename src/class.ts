@@ -1,12 +1,18 @@
 import { AkairoModule, AkairoModuleOptions } from "@kingsworld/akairo";
-import type { ApplicationCommandOptionData, AutocompleteInteraction, Interaction as DjsInteraction } from "discord.js"
+import type {
+  ApplicationCommandOptionData,
+  AutocompleteInteraction,
+  Interaction as DjsInteraction,
+} from "discord.js";
 
 export interface InteractionOptions extends AkairoModuleOptions {
   name: string;
   type: "USER" | "MESSAGE" | "CHAT_INPUT" | "BUTTON";
   defaultPermission?: boolean | undefined;
   description?: string;
-  options?: (ApplicationCommandOptionData & { default?: ((interaction: Interaction) => any) | any })[]
+  options?: (ApplicationCommandOptionData & {
+    default?: ((interaction: Interaction) => any) | any;
+  })[];
 }
 
 export class Interaction extends AkairoModule {
