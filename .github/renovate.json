@@ -1,10 +1,6 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:base", "helpers:pinGitHubActionDigests", ":disableRateLimiting"],
-  "labels": ["dependencies"],
-  "commitMessagePrefix": "⬆️",
-  "automergeStrategy": "squash",
-  "dependencyDashboard": true,
+  "extends": ["local>Kings-World/.github:renovate-config"]
   "npm": {
     "rangeStrategy": "bump",
     "packageRules": [
@@ -12,10 +8,6 @@
         "matchUpdateTypes": ["minor", "patch"],
         "matchCurrentVersion": "!/^0/",
         "automerge": true
-      },
-      {
-        "matchPackagePatterns": ["@kingsworld"],
-        "groupName": "King's World Dependencies"
       }
     ]
   }
