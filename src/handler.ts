@@ -30,11 +30,9 @@ export class InteractionHandler extends AkairoHandler {
         }
 
         if (interaction.isAutocomplete()) {
-          const focused = interaction.options.getFocused();
-          console.log("handler focused", focused);
           return handle(
             this.modules.get(interaction.commandName),
-            focused,
+            interaction.options.getFocused(),
             true
           );
         }
