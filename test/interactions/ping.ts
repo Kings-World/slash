@@ -9,18 +9,28 @@ export default class Ping extends Interaction {
       description: "send a simple ping pong msg",
       options: [
         {
-          name: "test",
+          name: "user",
           type: "STRING",
-          description: "testing autocomplete",
+          description: "who to ping pong with",
           autocomplete: true,
+          required: true,
+        },
+        {
+          name: "channel",
+          type: "CHANNEL",
+          channelTypes: ["GUILD_TEXT"],
+          description: "which channel to ping pong",
           required: true,
         },
       ],
     });
   }
 
-  override exec(interaction: CommandInteraction, { test }: { test: string }) {
-    return interaction.reply(`🏓 playing ping pong with **${test}**`);
+  override exec(interaction: CommandInteraction, { user, channel }: any) {
+    return interaction.reply({
+      content: `time for ping pong with <@${user}> in ${channel} 🏓`,
+      ephemeral: true,
+    });
   }
 
   override async autocomplete(
@@ -28,8 +38,8 @@ export default class Ping extends Interaction {
     focused: string
   ) {
     const arr = this.client.users.cache
-      .filter((u) => u.tag.includes(focused))
-      .map((u) => ({ name: u.tag, value: u.tag }));
+      .filter((u) => u.tag.toLowerCase().includes(focused))
+      .map((u) => ({ name: u.tag, value: u.id }));
     return interaction.respond(arr.slice(0, 25));
   }
 }
