@@ -1,43 +1,55 @@
-import { AkairoModule, AkairoModuleOptions } from "@kingsworld/akairo";
 import type {
-  ApplicationCommandOptionData,
   AutocompleteInteraction,
-  Interaction as DjsInteraction,
+  ButtonInteraction,
+  ChatInputCommandInteraction,
+  GuildMember,
+  Message,
+  MessageContextMenuCommandInteraction,
+  ModalSubmitInteraction,
+  User,
+  UserContextMenuCommandInteraction,
 } from "discord.js";
+import { AkairoModule } from "@kingsworld/akairo";
+import type { InteractionOptions } from "./types";
 
-export interface InteractionOptions extends AkairoModuleOptions {
-  name: string;
-  type: "USER" | "MESSAGE" | "CHAT_INPUT" | "BUTTON";
-  defaultPermission?: boolean | undefined;
-  description?: string;
-  options?: (ApplicationCommandOptionData & {
-    default?: ((interaction: Interaction) => any) | any;
-  })[];
-}
-
-export class Interaction extends AkairoModule {
-  name: InteractionOptions["name"];
-  type: InteractionOptions["type"];
-  defaultPermission: InteractionOptions["defaultPermission"];
-  description: InteractionOptions["description"];
-  options: InteractionOptions["options"];
-
-  constructor(id: string, options: InteractionOptions) {
+export class InteractionCommand extends AkairoModule {
+  constructor(id: string, readonly options: InteractionOptions = <any>{}) {
     super(id, options);
-    this.name = options.name;
-    this.type = options.type;
-    this.defaultPermission = options.defaultPermission;
-    this.description = options.description;
-    this.options = options.options;
   }
 
-  exec(interaction: DjsInteraction, options: any = {}): any {
-    void [interaction, options]
-    return Promise.resolve()
+  // slash command
+  slash(interaction: ChatInputCommandInteraction, options: any): any {
+    void [interaction, options];
   }
 
-  autocomplete(interaction: AutocompleteInteraction, options: any = {}): any {
-    void [interaction, options]
-    return Promise.resolve()
+  // slash command autocomplete
+  autocomplete(interaction: AutocompleteInteraction, focused: string): any {
+    void [interaction, focused];
+  }
+
+  // message context menu
+  messageContext(
+    interaction: MessageContextMenuCommandInteraction,
+    target: Message
+  ): any {
+    void [interaction, target];
+  }
+
+  // user context menu
+  userContext(
+    interaction: UserContextMenuCommandInteraction,
+    target: User | GuildMember
+  ): any {
+    void [interaction, target];
+  }
+
+  // button
+  button(interaction: ButtonInteraction): any {
+    void [interaction];
+  }
+
+  // modal submit
+  modal(interaction: ModalSubmitInteraction): any {
+    void [interaction];
   }
 }

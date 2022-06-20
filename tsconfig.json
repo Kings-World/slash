@@ -30,6 +30,6 @@
     "noUnusedParameters": true,
     "noStrictGenericChecks": true,
     "importsNotUsedAsValues": "error",
-    "pretty": true,
+    "pretty": true
   }
 }

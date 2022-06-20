@@ -1,32 +1,38 @@
-import { Interaction } from "../../src";
-import type { AutocompleteInteraction, CommandInteraction } from "discord.js";
+import {
+  ApplicationCommandOptionType,
+  AutocompleteInteraction,
+  ChannelType,
+  CommandInteraction,
+} from "discord.js";
+import { InteractionCommand } from "../../src";
 
-export default class Ping extends Interaction {
+export default class Ping extends InteractionCommand {
   constructor() {
     super("ping", {
-      name: "ping",
-      type: "CHAT_INPUT",
-      description: "send a simple ping pong msg",
-      options: [
-        {
-          name: "user",
-          type: "STRING",
-          description: "who to ping pong with",
-          autocomplete: true,
-          required: true,
-        },
-        {
-          name: "channel",
-          type: "CHANNEL",
-          channelTypes: ["GUILD_TEXT"],
-          description: "which channel to ping pong",
-          required: true,
-        },
-      ],
+      slashCommand: {
+        name: "ping",
+        description: "send a simple ping pong msg",
+        options: [
+          {
+            name: "user",
+            type: ApplicationCommandOptionType.String,
+            description: "who to ping pong with",
+            autocomplete: true,
+            required: true,
+          },
+          {
+            name: "channel",
+            type: ApplicationCommandOptionType.Channel,
+            channelTypes: [ChannelType.GuildText],
+            description: "which channel to ping pong",
+            required: true,
+          },
+        ],
+      },
     });
   }
 
-  override exec(interaction: CommandInteraction, { user, channel }: any) {
+  override slash(interaction: CommandInteraction, { user, channel }: any) {
     return interaction.reply({
       content: `time for ping pong with <@${user}> in ${channel} 🏓`,
       ephemeral: true,
