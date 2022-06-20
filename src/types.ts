@@ -7,6 +7,10 @@ import type {
 } from "discord.js";
 import type { AkairoModuleOptions } from "@kingsworld/akairo";
 
+// ---------------
+// command options
+// ---------------
+
 export interface SlashCommandOptions
   extends ChatInputApplicationCommandData,
     BaseOptions {
@@ -32,6 +36,10 @@ export type OptionsResolvable =
   | SlashCommandOptions
   | UserContextOptions
   | MessageContextOptions;
+
+// --------------
+// option choices
+// --------------
 
 export interface SlashCommandChoice {
   slashCommand: SlashCommandOptions;
